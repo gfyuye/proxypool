@@ -1,6 +1,6 @@
 # your domain
 domain: proxypool-bay.vercel.app   # or example.com:9443 for reserve proxy server
-port:                 # default 12580
+port: 8080             # default 12580
 
 # source list file
 source-files:
