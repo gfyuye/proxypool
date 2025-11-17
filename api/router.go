@@ -361,3 +361,23 @@ func Asset(name string) ([]byte, error) {
 	}
 	return nil, fmt.Errorf("Asset %s not found", name)
 }
+
+// Handler is the entry point for Vercel serverless functions
+func Handler(w http.ResponseWriter, r *http.Request) {
+	// Initialize router if not already done
+	if router == nil {
+		setupRouter()
+	}
+	
+	// Let Gin handle the request
+	router.ServeHTTP(w, r)
+}
+
+// Optional: Auto-initialize in Vercel environment
+func init() {
+	// Check if we're in Vercel environment
+	if os.Getenv("VERCEL") == "1" || os.Getenv("CI") != "" {
+		gin.SetMode(gin.ReleaseMode)
+		setupRouter()
+	}
+}
